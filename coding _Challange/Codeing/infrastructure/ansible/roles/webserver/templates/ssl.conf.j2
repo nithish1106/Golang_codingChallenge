@@ -1,0 +1,13 @@
+<VirtualHost *:443>
+    DocumentRoot "/var/www/html"
+    ServerName www.yourdomain.com
+
+    SSLEngine on
+    SSLCertificateFile /etc/pki/tls/certs/self-signed.crt
+    SSLCertificateKeyFile /etc/pki/tls/private/self-signed.key
+
+    <Directory "/var/www/html">
+        AllowOverride None
+        Require all granted
+    </Directory>
+</VirtualHost>

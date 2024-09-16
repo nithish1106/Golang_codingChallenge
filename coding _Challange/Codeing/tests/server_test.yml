@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  tasks:
+    - name: Check if port 443 is open
+      wait_for:
+        host: localhost
+        port: 443
+        state: started

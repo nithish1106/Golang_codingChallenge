@@ -1,0 +1,20 @@
+---
+- name: Install Apache and mod_ssl
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - httpd
+    - mod_ssl
+
+- name: Generate self-signed SSL certificate
+  command: openssl req -new -x509 -days 365 -nodes -out /etc/pki/tls/certs/self-signed.crt -keyout /etc/pki/tls/private/self-signed.key
+  args:
+    creates: /etc/pki/tls/certs/self-signed.crt
+
+- name: Configure SSL in Apache
+  template:
+    src: ssl.conf.j2
+    dest: /etc/httpd/conf.d/ssl.conf
+  notify:
+    - restart apache
